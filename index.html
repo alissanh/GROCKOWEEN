@@ -73,6 +73,8 @@ h1 span { color: var(--pumpkin); }
 .rules dt { font-weight: 700; }
 .rules dd { margin: 0; color: var(--muted); min-width: 0; }
 .rules .row.key dd { color: var(--fg); }
+.jump { width: 100%; padding: 14px 16px; border: 0; border-radius: 12px; background: var(--pumpkin); color: var(--on-accent); font-family: var(--f-display); font-weight: 800; font-size: 1.1rem; cursor: pointer; }
+.jump:hover { filter: brightness(1.08); }
 .tip { background: var(--violet-soft); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
 .tip h2 { font-family: var(--f-display); font-size: 1.15rem; margin: 0; color: var(--violet); }
 .tip p { margin: 0; font-size: .95rem; }
@@ -162,6 +164,8 @@ h1 span { color: var(--pumpkin); }
     <h1>Grock<span>o</span>ween Bar Crawl</h1>
     <div class="tally" id="tally"></div>
   </div>
+  
+  <button class="jump" id="jump">Jump to challenges ↓</button>
 
   <section class="rules" aria-labelledby="rules-h">
     <h2 id="rules-h">Rules</h2>
@@ -298,6 +302,7 @@ $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); i
 $('prev').addEventListener('click', () => go(cur - 1, true));
 $('next').addEventListener('click', () => go(cur + 1, true));
 $('up').addEventListener('click', () => $('grid-bars').closest('.group').scrollIntoView({ block: 'start' }));
+$('jump').addEventListener('click', () => $('tabs').scrollIntoView({ block: 'start' }));
 $('list').addEventListener('change', e => {
   const c = e.target.closest('.card'); if (!c) return;
   const n = +c.dataset.n;
