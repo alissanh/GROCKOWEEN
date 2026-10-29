@@ -297,7 +297,7 @@ function go(i, scroll) {
 $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) go(+b.dataset.i, true); });
 $('prev').addEventListener('click', () => go(cur - 1, true));
 $('next').addEventListener('click', () => go(cur + 1, true));
-$('up').addEventListener('click', () => $('tabs').scrollIntoView({ block: 'start' }));
+$('up').addEventListener('click', () => $('grid-bars').closest('.group').scrollIntoView({ block: 'start' }));
 $('list').addEventListener('change', e => {
   const c = e.target.closest('.card'); if (!c) return;
   const n = +c.dataset.n;
