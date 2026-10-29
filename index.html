@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grockoween Bar Crawl</title>
+<meta name="description" content="Grockoween Bar Crawl: rules, penalties, bar challenges, anywhere challenges and GOAT awards.">
+<meta name="theme-color" content="#f5f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15111b" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%83%3C/text%3E%3C/svg%3E">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: title, rules panel, two grids of big section tabs (Bars / Anywhere), then the chosen section's cards under a sticky section bar. Max 760px. */
+:root {
+  --bg: #f5f2f7;
+  --surface: #ffffff;
+  --line: #e2dbe8;
+  --fg: #1f1727;
+  --muted: #6b6076;
+  --pumpkin: #c94f0c;
+  --pumpkin-soft: #fbe6d8;
+  --violet: #5a2c86;
+  --violet-soft: #ece3f5;
+  --done: #2f7d4f;
+  --done-soft: #e2f2e8;
+  --on-accent: #ffffff;
+  --bad: #b3261e;
+  --bad-soft: #fbe4e2;
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", Roboto, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #15111b; --surface: #211a2b; --line: #3a2f48; --fg: #eee8f4; --muted: #a99db6;
+  --pumpkin: #ff8a3d; --pumpkin-soft: #3b2418; --violet: #c9a6f0; --violet-soft: #2e2240;
+  --done: #6fd39a; --done-soft: #1b3326; --on-accent: #15111b; --bad: #ff8a80; --bad-soft: #3a1c1f; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #15111b; --surface: #211a2b; --line: #3a2f48; --fg: #eee8f4; --muted: #a99db6;
+  --pumpkin: #ff8a3d; --pumpkin-soft: #3b2418; --violet: #c9a6f0; --violet-soft: #2e2240;
+  --done: #6fd39a; --done-soft: #1b3326; --on-accent: #15111b; --bad: #ff8a80; --bad-soft: #3a1c1f; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 16px; line-height: 1.45; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button { font: inherit; color: inherit; }
+button:focus-visible { outline: 3px solid var(--pumpkin); outline-offset: 2px; }
+
+.page { display: flex; flex-direction: column; gap: 22px; padding-block: 20px 56px; }
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { font-family: var(--f-display); font-weight: 800; font-size: 1.9rem; letter-spacing: -0.01em; margin: 0; line-height: 1.05; }
+h1 span { color: var(--pumpkin); }
+.tally { font-family: var(--f-mono); font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tally b { color: var(--done); }
+.label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+
+/* Rules */
+.rules { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.rules h2 { font-family: var(--f-display); font-size: 1.15rem; margin: 0 0 8px; }
+.rules dl { margin: 0; display: grid; gap: 0; }
+.rules .row { display: grid; grid-template-columns: 8.5rem 1fr; gap: 2px 14px; padding: 7px 0; border-top: 1px solid var(--line); }
+.rules .row:first-child { border-top: 0; }
+.rules dt { font-weight: 700; }
+.rules dd { margin: 0; color: var(--muted); min-width: 0; }
+.rules .row.key dd { color: var(--fg); }
+.respect { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--violet-soft); color: var(--fg); font-size: .95rem; }
+.respect b { color: var(--violet); }
+.penalties { border-color: var(--bad); }
+.penalties h2 { color: var(--bad); }
+.penalties ul { list-style: none; margin: 0; padding: 0; }
+.penalties li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); }
+.penalties li:first-child { border-top: 0; }
+.penalties li > span:first-child { font-weight: 700; min-width: 0; }
+.neg { font-family: var(--f-mono); font-weight: 700; color: var(--bad); background: var(--bad-soft); padding: 2px 8px; border-radius: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.neg em { font-family: var(--f-body); font-style: normal; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+.rules strong { color: var(--pumpkin); font-weight: 700; }
+.ghead p b { color: var(--fg); }
+.awards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.award { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 12px; border: 2px solid var(--pumpkin); background: var(--pumpkin-soft); min-width: 0; }
+.award .ahead { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.award h3 { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 1.05rem; line-height: 1.15; text-wrap: balance; }
+.award p { margin: 0; font-size: .9rem; color: var(--muted); flex: 1; }
+.award .fmt { align-self: flex-start; background: var(--surface); }
+@media (max-width: 520px) { .rules .row { grid-template-columns: 1fr; } }
+
+/* Tabs */
+.tabs { display: flex; flex-direction: column; gap: 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.tab { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 6px; min-height: 68px; text-align: left; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); cursor: pointer; }
+.tab .t { font-family: var(--f-display); font-weight: 800; font-size: 1rem; line-height: 1.15; text-wrap: balance; }
+.tab .tg { font-size: .8rem; line-height: 1.25; color: var(--muted); }
+.tab[aria-selected="true"] .tg { color: inherit; opacity: .9; }
+.group { display: flex; flex-direction: column; gap: 10px; }
+.ghead { display: flex; flex-direction: column; gap: 2px; }
+.ghead h2 { font-family: var(--f-display); font-weight: 800; font-size: 1.25rem; margin: 0; }
+.gtitle { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.ghead p { margin: 0; color: var(--muted); font-size: .92rem; }
+.note b { color: var(--fg); }
+.tab .c { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tab:hover { border-color: var(--pumpkin); }
+.tab.any:hover { border-color: var(--violet); }
+.tab[aria-selected="true"] { background: var(--pumpkin); border-color: var(--pumpkin); color: var(--on-accent); }
+.tab.any[aria-selected="true"] { background: var(--violet); border-color: var(--violet); }
+.tab[aria-selected="true"] .c { color: inherit; opacity: .85; }
+.tab.complete:not([aria-selected="true"]) { border-color: var(--done); }
+.tab.complete .c::after { content: " ✓"; color: var(--done); }
+.tab[aria-selected="true"].complete .c::after { color: inherit; }
+
+/* Section */
+.secbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 2px solid var(--fg); display: flex; flex-direction: column; gap: 8px; }
+.controls { display: flex; align-items: center; gap: 8px; }
+.controls .spacer { flex: 1; }
+.maps { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--pumpkin); background: var(--pumpkin-soft); color: var(--pumpkin); font-weight: 700; font-size: .85rem; text-decoration: none; white-space: nowrap; }
+.maps:hover { background: var(--pumpkin); color: var(--on-accent); }
+.maps:focus-visible { outline: 3px solid var(--pumpkin); outline-offset: 2px; }
+.secbar h2 { min-width: 0; margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
+.secbar .meta { display: block; font-family: var(--f-mono); font-weight: 500; font-size: .75rem; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
+.nav { width: 40px; height: 40px; flex: none; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 1.1rem; font-weight: 700; }
+.nav:disabled { opacity: .35; cursor: default; }
+.alltabs { flex: none; height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 700; font-size: .85rem; }
+.note { color: var(--muted); font-size: .92rem; margin: 10px 0 12px; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+
+.card { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 12px 10px; cursor: pointer; }
+.card input { position: absolute; opacity: 0; pointer-events: none; }
+.box { width: 26px; height: 26px; border-radius: 7px; border: 2px solid var(--line); display: grid; place-items: center; margin-top: 2px; color: transparent; font-weight: 700; }
+.card:has(input:focus-visible) { outline: 3px solid var(--pumpkin); outline-offset: 2px; }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.name { font-weight: 700; font-size: 1.02rem; line-height: 1.25; }
+.num { font-family: var(--f-mono); font-size: .8rem; color: var(--violet); background: var(--violet-soft); border-radius: 5px; padding: 1px 6px; margin-right: 6px; font-weight: 700; vertical-align: 1px; font-variant-numeric: tabular-nums; }
+.desc { color: var(--muted); font-size: .95rem; }
+.side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pts { font-family: var(--f-mono); font-weight: 700; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.pts small { font-size: .65rem; color: var(--muted); font-weight: 500; margin-left: 2px; }
+.fmt { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--pumpkin-soft); color: var(--pumpkin); white-space: nowrap; }
+.fmt.photo { background: var(--violet-soft); color: var(--violet); }
+.card.is-done { background: var(--done-soft); border-color: transparent; }
+.card.is-done .box { background: var(--done); border-color: var(--done); color: var(--surface); }
+.card.is-done .name { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--done); }
+@media (prefers-reduced-motion: no-preference) { .card, .tab { transition: background-color .15s, border-color .15s; } }
+
+.foot { display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: .85rem; }
+.reset { align-self: start; font-size: .85rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+.reset.armed { border-color: var(--pumpkin); color: var(--pumpkin); }
+</style>
+</head>
+<body>
+<div class="wrap page">
+  <div class="top">
+    <h1>Grock<span>o</span>ween Bar Crawl</h1>
+    <div class="tally" id="tally"></div>
+  </div>
+
+  <section class="rules" aria-labelledby="rules-h">
+    <h2 id="rules-h">Rules</h2>
+    <dl id="rules"></dl>
+    <p class="respect">We encourage competition and engagement, but keep it respectful. Be mindful of the customers and staff at the bars: you're in public!! And tip your bartenders!! <b>Have fun!!</b></p>
+  </section>
+
+  <section class="rules penalties" aria-labelledby="pen-h">
+    <h2 id="pen-h">Penalties</h2>
+    <ul>
+      <li><span>Throwing up</span><span class="neg">−80 pts <em>each time</em></span></li>
+      <li><span>Getting kicked out of a bar</span><span class="neg">−200 pts</span></li>
+      <li><span>Dissent towards VP Internals</span><span class="neg">−150 pts</span></li>
+    </ul>
+  </section>
+
+  <nav class="tabs" id="tabs" aria-label="Challenge sections">
+    <div class="group"><div class="ghead"><div class="gtitle"><h2>Bars</h2><a class="maps" href="https://maps.app.goo.gl/8zq6ByigjjJuDJus8" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Map of all Bars</a></div><p>Location specific. Get to know Main Street!</p></div><div class="grid" role="tablist" id="grid-bars"></div></div>
+    <div class="group"><div class="ghead"><h2>Anywhere</h2><p>Universal challenges you can do at any bar.</p></div><div class="grid" role="tablist" id="grid-any"></div></div>
+    <div class="group"><div class="ghead"><h2>GOAT</h2><p id="goat-p"></p></div><div class="awards" id="grid-goat"></div></div>
+  </nav>
+
+  <section id="section" aria-live="polite">
+    <div class="secbar">
+      <h2><span id="sec-name"></span><span class="meta" id="sec-meta"></span></h2>
+      <div class="controls">
+        <button class="nav" id="prev" aria-label="Previous section">‹</button>
+        <button class="nav" id="next" aria-label="Next section">›</button>
+        <span class="spacer"></span>
+        <a class="maps" id="maps" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Google Maps</a>
+        <button class="alltabs" id="up" aria-label="Back to all tabs">Tabs ↑</button>
+      </div>
+    </div>
+    <p class="note" id="sec-note"></p>
+    <div class="list" id="list"></div>
+  </section>
+
+  <div class="foot">
+    <span>Checkmarks are saved on this phone only and don't submit anything to VP Internals.</span>
+    <button class="reset" id="reset">Clear all checkmarks</button>
+  </div>
+</div>
+
+<script>
+const DATA = {"sections": [{"name": "THE MAIN", "tag": "", "blurb": "", "items": [{"n": 1, "name": "Greek Feast", "desc": "Order a Greek appetizer and recreate The Last Supper with your task force.", "fmt": "Video", "pts": 55}, {"n": 2, "name": "Mount Olympus", "desc": "At least 4 teammates impersonate Greek gods and argue over who rules Olympus.", "fmt": "Video", "pts": 65}, {"n": 3, "name": "Greek God Recruitment", "desc": "Ask a stranger to declare which teammate is the most attractive Greek god.", "fmt": "Video", "pts": 70}, {"n": 4, "name": "The Greek Wedding", "desc": "Convince a stranger to officiate a 30-second wedding between teammates.", "fmt": "Video", "pts": 80}, {"n": 5, "name": "Greek Dancing", "desc": "At least 4 teammates perform a Greek-style dance for 20 seconds.", "fmt": "Video", "pts": 90}, {"n": 6, "name": "The Greek Chorus", "desc": "A stranger leads at least 4 teammates in a Halloween costume chant.", "fmt": "Video", "pts": 105}]}, {"name": "STEAMWORKS MOUNT PLEASANT", "tag": "", "blurb": "", "items": [{"n": 7, "name": "Pitcher Perfect", "desc": "Order a beer pitcher and recreate a royal family portrait.", "fmt": "Photo", "pts": 40}, {"n": 8, "name": "10-Tap Challenge", "desc": "Order the 10-beer tasting flight and photograph the team with their favourite samples.", "fmt": "Photo", "pts": 45}, {"n": 9, "name": "Beer Roulette", "desc": "Identify three beer styles from a flight without looking at the menu.", "fmt": "Video", "pts": 45}, {"n": 10, "name": "Four Horsemen", "desc": "Order a four-beer flight; four teammates invent Halloween beer names and tasting reviews.", "fmt": "Video", "pts": 50}, {"n": 11, "name": "Piña Kölschlada", "desc": "Order the Piña Kölschlada and film a 20-second tropical vacation commercial.", "fmt": "Video", "pts": 55}, {"n": 12, "name": "The Beer Expert", "desc": "Convince a stranger to give a pretentious review of one of your beers.", "fmt": "Video", "pts": 70}, {"n": 13, "name": "Thriller on Tap", "desc": "At least 4 teammates perform 20 seconds of recognizable Thriller choreography.", "fmt": "Video", "pts": 110}]}, {"name": "BRASSNECK BREWERY", "tag": "", "blurb": "", "items": [{"n": 14, "name": "Brassbat Roulette", "desc": "Order a Brassbat flight. Four teammates rank the beers, then agree on the winner.", "fmt": "Video", "pts": 40}, {"n": 15, "name": "No Brainer", "desc": "Order No Brainer lager; each teammate must correctly answer one easy trivia question.", "fmt": "Video", "pts": 45}, {"n": 16, "name": "Passive Aggressive", "desc": "Order Passive Aggressive Pale Ale and deliver a passive-aggressive compliment to your captain.", "fmt": "Video", "pts": 55}, {"n": 17, "name": "Young Bastard", "desc": "If on tap, order Young Bastard and impersonate an angry elderly British man.", "fmt": "Video", "pts": 60}, {"n": 18, "name": "Black Magic", "desc": "Order Schwartztechnik black lager and perform a 30-second team witchcraft ritual.", "fmt": "Video", "pts": 65}, {"n": 19, "name": "Passive Aggressive Stranger", "desc": "Have a stranger deliver a passive-aggressive roast of your captain.", "fmt": "Video", "pts": 75}, {"n": 20, "name": "Witch's Brew", "desc": "Give a beer a Halloween name and have a stranger advertise it for 30 seconds.", "fmt": "Video", "pts": 80}]}, {"name": "PINKY'S", "tag": "", "blurb": "", "items": [{"n": 21, "name": "Pop Rocks Cosmo", "desc": "Order a Pop Rocks Cosmo.", "fmt": "Photo", "pts": 25}, {"n": 22, "name": "Sour Patch Kids", "desc": "Order Sour Patch Lemonade and Sour Key cocktails.", "fmt": "Photo", "pts": 35}, {"n": 23, "name": "Ice Cream Nightmare", "desc": "Order a Classic Ice Cream Float and propose marriage to it.", "fmt": "Video", "pts": 45}, {"n": 24, "name": "Pinky's Abomination", "desc": "Dip a bite of Nashville Hot Chicken into a Root Beer Float and give a gourmet review.", "fmt": "Video", "pts": 55}, {"n": 25, "name": "Swedish Fish", "desc": "Order Swedish Gin Berry; a teammate impersonates a fish out of water for 30 seconds.", "fmt": "Video", "pts": 65}, {"n": 26, "name": "Pink Panther", "desc": "Get a stranger to perform a 20-second Pink Panther-style heist scene.", "fmt": "Video", "pts": 65}, {"n": 27, "name": "Pinky's Bomb", "desc": "Order a Pinky's Bomb and film a 20-second pretend bomb-defusal scene.", "fmt": "Video", "pts": 75}, {"n": 28, "name": "Baby Food Challenge", "desc": "Mix mac & cheese, melted ice cream and soda. Eat one bite and call it delicious.", "fmt": "Video", "pts": 90}, {"n": 29, "name": "Candy Costume", "desc": "Get a stranger to help make a teammate look like a piece of candy using removable accessories.", "fmt": "Video", "pts": 90}]}, {"name": "FRIENDLIES", "tag": "", "blurb": "", "items": [{"n": 30, "name": "Bangarang", "desc": "Order a Bangarang cocktail.", "fmt": "Photo", "pts": 25}, {"n": 31, "name": "Just a Cheeky", "desc": "Order a 5 oz Just a Cheeky beer.", "fmt": "Photo", "pts": 35}, {"n": 32, "name": "Tomb Raider", "desc": "Order Tomb Raider; give a 15-second Lara Croft impression.", "fmt": "Video", "pts": 40}, {"n": 33, "name": "Friendlies Betrayal", "desc": "Get a rival teammate to explain on camera why they would rather join your team.", "fmt": "Video", "pts": 55}, {"n": 34, "name": "Saria's Song", "desc": "Order Saria's Song; at least 3 teammates perform a synchronized Zelda-inspired dance.", "fmt": "Video", "pts": 70}, {"n": 35, "name": "Secret Garden", "desc": "Order Secret Garden. Recreate Adam and Eve meeting (PG-13).", "fmt": "Video", "pts": 85}, {"n": 36, "name": "Riot Maker", "desc": "Order Riot Maker. At least four teammates protest against the president.", "fmt": "Video", "pts": 85}, {"n": 37, "name": "Monster Mash", "desc": "At least 3 teammates perform 30 seconds of the Monster Mash.", "fmt": "Video", "pts": 95}, {"n": 38, "name": "Riot Recruitment", "desc": "Get a stranger to join at least 4 teammates in a 30-second protest against the president.", "fmt": "Video", "pts": 125}, {"n": 39, "name": "Off the Floor", "desc": "Order Off the Floor, drink it from the floor.", "fmt": "Video", "pts": 250}]}, {"name": "SING SING", "tag": "", "blurb": "", "items": [{"n": 40, "name": "Pizza & Pho", "desc": "Order a pizza and pho together.", "fmt": "Photo", "pts": 30}, {"n": 41, "name": "Last Slice", "desc": "Have a stranger judge a 30-second argument over the last pizza slice.", "fmt": "Video", "pts": 35}, {"n": 42, "name": "Sing Sing Prison", "desc": "Recreate a 30-second prison-break scene with three teammates.", "fmt": "Video", "pts": 50}, {"n": 43, "name": "Stranger Duet", "desc": "Sing a 15-second duet with a stranger.", "fmt": "Video", "pts": 55}, {"n": 44, "name": "Pho Real", "desc": "Give a Gordon Ramsay-style review of a bowl of pho.", "fmt": "Video", "pts": 65}, {"n": 45, "name": "Halloween Choir", "desc": "At least 4 teammates and a stranger sing a Halloween song for 20 seconds.", "fmt": "Video", "pts": 115}, {"n": 46, "name": "Sing Sing Showdown", "desc": "Challenge another task force to a 30-second a cappella battle. VP Internals judge the video; only the winner scores.", "fmt": "Video", "pts": 120}, {"n": 47, "name": "Stranger Sing-Off", "desc": "Challenge a stranger to a 30-second a cappella sing-off. VP Internals pick the winner from the video; points only if you win.", "fmt": "Video", "pts": 140}]}, {"name": "UNCLE ABE'S", "tag": "", "blurb": "", "items": [{"n": 48, "name": "Frozé All Day", "desc": "Order Frozé and recreate a scene from Frozen.", "fmt": "Photo", "pts": 35}, {"n": 49, "name": "Dirty Uncle Abe", "desc": "Order a Monarch Dirty Burger and film a 20-second food advertisement.", "fmt": "Video", "pts": 55}, {"n": 50, "name": "Pickle Rick", "desc": "Order a pickleback and do a Rick and Morty impression.", "fmt": "Video", "pts": 60}, {"n": 51, "name": "The Perfect Shaft", "desc": "Order a Shaft. Give a 45-second speech about the perfect Shaft.", "fmt": "Video", "pts": 70}, {"n": 52, "name": "Family Reunion", "desc": "Order a share pitcher. Film a 30-second dysfunctional family reunion with your team.", "fmt": "Video", "pts": 75}, {"n": 53, "name": "Long Lost Uncle", "desc": "Convince a stranger to pretend to be a teammate's long-lost uncle.", "fmt": "Video", "pts": 80}, {"n": 54, "name": "Family Reunion: Extended Edition", "desc": "Recruit a stranger to play a relative in your dysfunctional family reunion.", "fmt": "Video", "pts": 80}, {"n": 55, "name": "Uncle Abe's Dance Floor", "desc": "Beat another task force in a 30-second disco dance battle. VP Internals judge.", "fmt": "Video", "pts": 120}]}, {"name": "HYDE", "tag": "", "blurb": "", "items": [{"n": 56, "name": "Hyde Poutine", "desc": "Order Hyde Poutine.", "fmt": "Photo", "pts": 20}, {"n": 57, "name": "Late Night Wings", "desc": "Order late-night wings and recreate a Renaissance feast.", "fmt": "Photo", "pts": 30}, {"n": 58, "name": "Hyde's Secret Sauce", "desc": "Review Hyde Poutine as a teammate feeds you fries like royalty.", "fmt": "Video", "pts": 40}, {"n": 59, "name": "Wing Trial", "desc": "Hold a courtroom trial over who deserves the last wing.", "fmt": "Video", "pts": 45}, {"n": 60, "name": "OTR Sour", "desc": "Order an OTR Sour and give an obnoxiously pretentious beer review.", "fmt": "Video", "pts": 50}, {"n": 61, "name": "Hyde After Dark", "desc": "Film a 30-second reality-TV argument over the last wing.", "fmt": "Video", "pts": 55}, {"n": 62, "name": "Hot Wing Challenge", "desc": "Eat a wing with the hottest sauce the bar serves, then give a calm review.", "fmt": "Video", "pts": 65}, {"n": 63, "name": "Rival Wing Roulette", "desc": "Beat a rival task force in blind identification of three wing flavours.", "fmt": "Video", "pts": 70}, {"n": 64, "name": "The Wing Judge", "desc": "Get a stranger to judge the cleanest chicken-wing eating technique; no speed contest.", "fmt": "Video", "pts": 75}, {"n": 65, "name": "Jekyll & Hyde", "desc": "Have a stranger rate a teammate's transformation into an evil alter ego.", "fmt": "Video", "pts": 80}, {"n": 66, "name": "Baby Bird Poutine", "desc": "Have a teammate feed you a bite of poutine baby-bird style. No pre-chewing.", "fmt": "Video", "pts": 125}]}, {"name": "BROWNS CRAFTHOUSE", "tag": "", "blurb": "", "items": [{"n": 67, "name": "Chain Famous", "desc": "Order Chain Famous cocktail and take a celebrity paparazzi photo.", "fmt": "Photo", "pts": 25}, {"n": 68, "name": "Crafthouse Feast", "desc": "Order smashburger tacos and nachitos and recreate a Renaissance banquet.", "fmt": "Photo", "pts": 30}, {"n": 69, "name": "Mango Fizz", "desc": "Order Mango Fizz and film a 15-second advertisement.", "fmt": "Video", "pts": 45}, {"n": 70, "name": "Pineapple Jalapeño", "desc": "Order Pineapple Jalapeño and deliver a dramatic food review.", "fmt": "Video", "pts": 45}, {"n": 71, "name": "Social Lager", "desc": "Order Social Lager and recreate an awkward first date.", "fmt": "Video", "pts": 65}, {"n": 72, "name": "Halloween First Date", "desc": "Portray a date between incompatible Halloween characters; a stranger judges whether there is a second date.", "fmt": "Video", "pts": 75}, {"n": 73, "name": "Crafthouse Dating Show", "desc": "Get a stranger to host a 60-second dating show with two teammates.", "fmt": "Video", "pts": 100}]}, {"name": "BRITANNIA BREWING", "tag": "", "blurb": "", "items": [{"n": 74, "name": "Seaside Spritz", "desc": "Order Seaside Spritz and recreate a cruise-ship photo.", "fmt": "Photo", "pts": 25}, {"n": 75, "name": "Jalapeño Margarita", "desc": "Order jalapeño margarita and give a celebrity-chef review.", "fmt": "Video", "pts": 40}, {"n": 76, "name": "Poison Apple", "desc": "Order Fresh Juiced Okanagan Apple cocktail and recreate Snow White being poisoned.", "fmt": "Video", "pts": 55}, {"n": 77, "name": "British Invasion", "desc": "Order Brit Sour; three teammates do increasingly outrageous British accents.", "fmt": "Video", "pts": 55}, {"n": 78, "name": "Butterfly Effect", "desc": "Order Butterfly Sour and perform a caterpillar-to-butterfly transformation.", "fmt": "Video", "pts": 65}, {"n": 79, "name": "Paper Plane", "desc": "Order Paper Plane and perform an absurd British airline safety demonstration.", "fmt": "Video", "pts": 65}, {"n": 80, "name": "Australian Impostor", "desc": "Have a stranger judge your 30-second Australian accent attempt.", "fmt": "Video", "pts": 85}, {"n": 81, "name": "Royal Family Scandal", "desc": "Four teammates film a 30-second royal scandal in exaggerated posh accents.", "fmt": "Video", "pts": 90}, {"n": 82, "name": "British Accent Battle", "desc": "Perform your most ridiculous British accent on video. VP Internals choose one winner.", "fmt": "Video", "pts": 110}, {"n": 83, "name": "British Invasion: Stranger Edition", "desc": "Convince a stranger to lead three teammates in a 30-second pub singalong.", "fmt": "Video", "pts": 110}]}, {"name": "EL CAMINO'S", "tag": "", "blurb": "", "items": [{"n": 84, "name": "Margarita Madness", "desc": "Order three different margarita varieties.", "fmt": "Photo", "pts": 30}, {"n": 85, "name": "Super Habanero", "desc": "Order Super Habanero Margarita and dramatically review its spice.", "fmt": "Video", "pts": 40}, {"n": 86, "name": "El Infierno", "desc": "Order Infierno and film your impression of someone entering hell.", "fmt": "Video", "pts": 50}, {"n": 87, "name": "Cacao Loco", "desc": "Order Cacao Loco and stage a mock teammate exorcism.", "fmt": "Video", "pts": 60}, {"n": 88, "name": "Eye of the Tiger", "desc": "Order El Tigre and recreate a 20-second Rocky training montage.", "fmt": "Video", "pts": 65}, {"n": 89, "name": "Telenovela", "desc": "Perform a 30-second Spanish soap-opera breakup scene.", "fmt": "Video", "pts": 75}, {"n": 90, "name": "Telenovela Casting", "desc": "Convince a stranger to play the villain in your 30-second telenovela.", "fmt": "Video", "pts": 85}, {"n": 91, "name": "Day of the Dead", "desc": "Four teammates perform a 30-second Day of the Dead-inspired dance in costume.", "fmt": "Video", "pts": 100}]}, {"name": "BB.Q CHICKEN & PUB", "tag": "", "blurb": "", "items": [{"n": 92, "name": "Korean Cocktail Collection", "desc": "Order two different cocktails from the menu.", "fmt": "Photo", "pts": 35}, {"n": 93, "name": "Pink Fizz", "desc": "Order Pink Fizz and film a 15-second perfume advertisement.", "fmt": "Video", "pts": 40}, {"n": 94, "name": "Chicken Roulette", "desc": "Correctly identify three chicken flavours blindfolded.", "fmt": "Video", "pts": 45}, {"n": 95, "name": "Ultimate Chicken Cocktail", "desc": "Dip a bite of chicken in an alcoholic cocktail and give a 15-second gourmet review.", "fmt": "Video", "pts": 55}, {"n": 96, "name": "So-Mack Tower", "desc": "Order a So-Mack Tower and photograph your task force with it.", "fmt": "Photo", "pts": 60}, {"n": 97, "name": "Soju Buzz", "desc": "Order Soju Buzz and film a 20-second Korean dating-show introduction.", "fmt": "Video", "pts": 60}, {"n": 98, "name": "Captain's Coronation", "desc": "Crown your captain and have teammates kneel and pledge allegiance.", "fmt": "Video", "pts": 65}, {"n": 99, "name": "Korean Dating Show", "desc": "Have a stranger join a 30-second Korean dating-show reenactment with two teammates.", "fmt": "Video", "pts": 90}, {"n": 100, "name": "Tower vs. Tower", "desc": "Two task forces make 30-second advertisements for their towers or shared drink orders. VP Internals choose the winner; only that team scores.", "fmt": "Video", "pts": 100}, {"n": 101, "name": "K-Pop Dance Battle", "desc": "Beat another task force in a 30-second synchronized K-pop dance battle.", "fmt": "Video", "pts": 100}]}, {"name": "GOOD CO. MAIN STREET", "tag": "", "blurb": "", "items": [{"n": 102, "name": "Trick Shot", "desc": "Sink a bank shot in pool.", "fmt": "Video", "pts": 55}, {"n": 103, "name": "ESPN Commentary", "desc": "Commentate a teammate's pool shot like a World Cup final.", "fmt": "Video", "pts": 55}, {"n": 104, "name": "Pool Sharks", "desc": "Beat a rival task force at pool.", "fmt": "Video", "pts": 65}, {"n": 105, "name": "Arcade Rivalry", "desc": "Beat a rival task force member at an available arcade game.", "fmt": "Video", "pts": 65}, {"n": 106, "name": "Super Bowl Champions", "desc": "Film a 30-second championship celebration with four teammates in front of the screens.", "fmt": "Video", "pts": 70}, {"n": 107, "name": "Sports Analyst", "desc": "Have a stranger give a 30-second analysis of a teammate's pool game.", "fmt": "Video", "pts": 75}, {"n": 108, "name": "Pool Hustler", "desc": "Beat a stranger at pool.", "fmt": "Video", "pts": 85}, {"n": 109, "name": "Halloween Halftime Show", "desc": "Four teammates perform a synchronized 30-second halftime dance.", "fmt": "Video", "pts": 90}]}, {"name": "NIKKYU", "tag": "", "blurb": "", "items": [{"n": 110, "name": "Sushi Roulette", "desc": "Identify three sushi rolls blindfolded by taste.", "fmt": "Video", "pts": 50}, {"n": 111, "name": "Volcano Eruption", "desc": "Order Volcano Roll and act out a 20-second volcanic eruption.", "fmt": "Video", "pts": 60}, {"n": 112, "name": "Beer Tower", "desc": "If available, order a beer tower and take a group photo.", "fmt": "Photo", "pts": 60}, {"n": 113, "name": "Sushi Proposal", "desc": "Propose to a teammate using sushi as the ring.", "fmt": "Video", "pts": 65}, {"n": 114, "name": "Sapporo Tower", "desc": "If available, order a Sapporo beer tower and photograph your whole team with it.", "fmt": "Photo", "pts": 75}, {"n": 115, "name": "Sushi Catastrophe", "desc": "Combine edible ingredients from Volcano Roll and California Roll and give a gourmet review.", "fmt": "Video", "pts": 80}, {"n": 116, "name": "Sushi Stranger", "desc": "Recruit a stranger to narrate a 20-second sushi commercial.", "fmt": "Video", "pts": 90}, {"n": 117, "name": "Tower Dance", "desc": "If available, order a beer tower and have four teammates celebrate with a 30-second synchronized dance.", "fmt": "Video", "pts": 100}, {"n": 118, "name": "Tower Hostage Negotiation", "desc": "If beer towers are served, stage a 30-second pretend negotiation with a rival team over your tower.", "fmt": "Video", "pts": 125}]}, {"name": "CRAFT BEER MARKET", "tag": "", "blurb": "", "items": [{"n": 119, "name": "Nacho Barrel", "desc": "Order Nacho Barrel and photograph your team worshipping it.", "fmt": "Photo", "pts": 35}, {"n": 120, "name": "Mango Jalapeño Margarita", "desc": "Order Mango Jalapeño Margarita and give a dramatic review.", "fmt": "Video", "pts": 45}, {"n": 121, "name": "Beer Snob Olympics", "desc": "If a tasting flight is offered, have three teammates give increasingly pretentious serious reviews.", "fmt": "Video", "pts": 55}, {"n": 122, "name": "Squirrel Chaser", "desc": "If on tap, order Yellow Dog Squirrel Chaser and film a 20-second teammate-as-squirrel wildlife documentary.", "fmt": "Video", "pts": 70}, {"n": 123, "name": "Frozen Irish Coffee", "desc": "Order Frozen Irish Coffee and perform a bad Irish accent and 30-second jig.", "fmt": "Video", "pts": 80}, {"n": 124, "name": "Craft Beer Sommelier", "desc": "Get a stranger to give a very pretentious review of a beer you ordered.", "fmt": "Video", "pts": 85}, {"n": 125, "name": "Irish Jig-Off", "desc": "Convince a stranger to judge an Irish jig contest between teammates.", "fmt": "Video", "pts": 90}, {"n": 126, "name": "Craft Karaoke", "desc": "Beat another task force in a 30-second singing contest. VP Internals judge submissions.", "fmt": "Video", "pts": 130}]}, {"name": "Stranger Danger", "tag": "Involves a stranger", "blurb": "Easy to do at any bar. For the extroverts!", "items": [{"n": 127, "name": "We Love Generocksity", "desc": "Get a stranger to say “We love Generocksity!” on video. 20 points per unique stranger, unlimited submissions; no repeat strangers.", "fmt": "Video", "pts": 20}, {"n": 128, "name": "Stranger Rates Outfit", "desc": "Get a stranger to rate your outfit out of 10.", "fmt": "Video", "pts": 45}, {"n": 129, "name": "TikTok With Randoms", "desc": "Film a different TikTok trend with strangers. 50 points per unique trend, unlimited trends; one submission per trend.", "fmt": "Video", "pts": 50}, {"n": 130, "name": "Halloween Pickup", "desc": "Deliver a Halloween-themed pickup line to a stranger and get a rating out of 10.", "fmt": "Video", "pts": 60}, {"n": 131, "name": "Trick or Treat", "desc": "Say \"Trick or treat\" to a stranger and get them to give you an item.", "fmt": "Video", "pts": 65}, {"n": 132, "name": "Worst Pickup Line Rated", "desc": "Get a stranger to rate your worst pickup line out of 10.", "fmt": "Video", "pts": 65}, {"n": 133, "name": "Costume Roast", "desc": "Get a stranger to roast every costume on your task force.", "fmt": "Video", "pts": 75}, {"n": 134, "name": "Most People in a Tree", "desc": "Get as many people as possible in a tree. Biggest group wins.", "fmt": "Photo", "pts": 75}, {"n": 135, "name": "Stranger Food Bite", "desc": "Get a bite of food by a stranger.", "fmt": "Video", "pts": 80}, {"n": 136, "name": "Lady and the Tramp", "desc": "Recreate Lady and the Tramp with a teammate or stranger using food.", "fmt": "Video", "pts": 80}, {"n": 137, "name": "Signature Dance Lesson", "desc": "Have a stranger teach you their signature dance move.", "fmt": "Video", "pts": 80}, {"n": 138, "name": "Learn the Griddy", "desc": "Get a stranger to teach you how to Griddy.", "fmt": "Video", "pts": 85}, {"n": 139, "name": "Learn the Dougie", "desc": "Get a stranger to teach you how to Dougie.", "fmt": "Video", "pts": 85}, {"n": 140, "name": "Stranger Dance Battle", "desc": "Challenge a stranger to a dance battle.", "fmt": "Video", "pts": 100}, {"n": 141, "name": "Biggest Group Hug", "desc": "Photograph the largest simultaneous group hug. Only the team with the most people earns points.", "fmt": "Photo", "pts": 100}, {"n": 142, "name": "Drink Bought by Stranger", "desc": "Get a stranger to buy you a drink and show proof of purchase. 100 points per purchase, unlimited; a stranger counts once for this challenge.", "fmt": "Video/Receipt", "pts": 100}, {"n": 143, "name": "Stranger Costume Swap", "desc": "Swap costumes with a stranger.", "fmt": "Video", "pts": 100}, {"n": 144, "name": "Stranger Proposal", "desc": "Have a stranger perform a pretend proposal to you inside a bar.", "fmt": "Video", "pts": 100}, {"n": 145, "name": "Costume Court", "desc": "Put a rival costume on trial. Get a stranger to judge which costume is worse on video.", "fmt": "Video", "pts": 100}, {"n": 146, "name": "Largest Costume Group", "desc": "Take the largest costume-group photo with strangers. Only the team with the most people earns points.", "fmt": "Photo", "pts": 110}, {"n": 147, "name": "Shot and Next Bar", "desc": "Take a shot with a stranger and get them to come to the next bar.", "fmt": "Video", "pts": 110}, {"n": 148, "name": "Trick-or-Treat Trade", "desc": "Trade something you have with a stranger for something of more monetary value.", "fmt": "Video", "pts": 110}, {"n": 149, "name": "Round From a Stranger", "desc": "Get a stranger to buy a round for your team. Show the receipt.", "fmt": "Video/Receipt", "pts": 150}, {"n": 150, "name": "Three Challenges With Stranger", "desc": "A stranger completes 3 other distinct challenges with your team. They can participate in other challenges too.", "fmt": "Video", "pts": 150}, {"n": 151, "name": "Conga Line", "desc": "Start a conga line of at least 12 people and keep it going for 20 seconds.", "fmt": "Video", "pts": 160}, {"n": 152, "name": "Halloween Singalong", "desc": "Get at least 3 strangers to sing a Halloween song with your team for 20 seconds.", "fmt": "Video", "pts": 175}], "label": "Stranger Danger"}, {"name": "Keep it in Grock", "tag": "Involves a GROCK member or VP", "blurb": "Test your GROCK knowledge or just mess with the VPs. Easy to do, if you can track the VPs down…", "items": [{"n": 153, "name": "Grock Speed Recall", "desc": "Name as many different Grock members as possible in 15 seconds. 5 points per correctly named person.", "fmt": "Video", "pts": 5}, {"n": 154, "name": "Grock Exec Impression", "desc": "Impersonate a Grock executive on video. 20 points per different executive, unlimited executives; each executive counts once per task force.", "fmt": "Video", "pts": 20}, {"n": 155, "name": "Clear Ice Cube", "desc": "Bring a clear ice cube to VP Internals.", "fmt": "Physical", "pts": 40}, {"n": 156, "name": "Worst Fake ID", "desc": "Bring the worst clearly fake novelty ID to VP Internals.", "fmt": "Physical", "pts": 55}, {"n": 157, "name": "Street Sign Replica", "desc": "Bring a street sign or replica to VP Internals.", "fmt": "Physical", "pts": 60}, {"n": 158, "name": "Perfect Nugget", "desc": "Bring a single perfectly round chicken nugget to VP Internals.", "fmt": "Physical", "pts": 60}, {"n": 159, "name": "Pray to Goatlissa", "desc": "Have your whole team pray to Goatlissa as if you are in a cult.", "fmt": "Video", "pts": 70}, {"n": 160, "name": "Imagine Dragons Joke", "desc": "Get someone who has never been in Grock to fall for the Imagine Dragons joke.", "fmt": "Video", "pts": 80}, {"n": 161, "name": "Grock Exec Tier List", "desc": "Film a comedic ranking of Grock executives.", "fmt": "Video", "pts": 95}, {"n": 162, "name": "Presidential Treat", "desc": "Convince a club president who is not on your task force to buy you a drink.", "fmt": "Video/Receipt", "pts": 100}, {"n": 163, "name": "Bribe the Ref, Drink", "desc": "Buy a VP Internal a drink of their choice. 150 points per purchase, maximum 2 purchases per task force. Show the drink and receipt.", "fmt": "Photo/Receipt", "pts": 150}, {"n": 164, "name": "Bribe the Ref, Food", "desc": "Buy a VP Internal food of their choice. 200 points per purchase, maximum 2 purchases per task force. Show the food and receipt.", "fmt": "Photo/Receipt", "pts": 200}, {"n": 165, "name": "It's a Me", "desc": "Learn an Italian sentence from Carlotta", "fmt": "Video", "pts": 55}, {"n": 166, "name": "Mullet Madness", "desc": "Put something in Alex's mullet WITHOUT him noticing", "fmt": "Video/Photo", "pts": 60}, {"n": 167, "name": "Last to Leave", "desc": "Film a Mr.Beast Parody video with Bella (minimum 20 seconds)", "fmt": "Video", "pts": 60}, {"n": 168, "name": "Plug it Up", "desc": "Gift makeshift Butt Plug to Sophia", "fmt": "Video", "pts": 60}, {"n": 169, "name": "FOMO", "desc": "Get an explanation as to why she has never been to retreat from Vy", "fmt": "Video", "pts": 50}, {"n": 170, "name": "Where is he?", "desc": "Get a photo with Azaad WITH timestamp", "fmt": "Photo", "pts": 200}, {"n": 171, "name": "Volume Alert", "desc": "Get a stranger to shush Fran or tell her she's too loud", "fmt": "Video", "pts": 60}, {"n": 172, "name": "Get to Know Me", "desc": "Introduce yourself to Tayo as if she's never met you before", "fmt": "Video", "pts": 40}, {"n": 173, "name": "New York New York", "desc": "Get Mehul to do a Mamdani impression", "fmt": "Video", "pts": 40}, {"n": 174, "name": "Mommy Milkers", "desc": "Go up to Mattias and ask him for \"Uppies\" (minimum 15 seconds)", "fmt": "Video", "pts": 50}, {"n": 175, "name": "Get Ready Without Me", "desc": "Get Olivia to roast your outfit", "fmt": "Video", "pts": 50}, {"n": 176, "name": "Fresh Slice", "desc": "Buy Jessie a slice of pizza, HAS to be from FreshSlice", "fmt": "Photo/Video", "pts": 60}, {"n": 177, "name": "Lily Pads", "desc": "Get Amara to leap frog you or let you leap frog her", "fmt": "Video", "pts": 60}, {"n": 178, "name": "Perky Lips", "desc": "Kiss Rohan's cheek (WITH CONSENT)", "fmt": "Photo", "pts": 40}, {"n": 179, "name": "Lebron James", "desc": "Dunk on Akshay", "fmt": "Video", "pts": 50}, {"n": 180, "name": "Caliente", "desc": "Get Gabby mad", "fmt": "Video", "pts": 50}], "label": "Keep It in GROCK"}, {"name": "Ohana Means Task Force", "tag": "Your task force only", "blurb": "The “easiest” tasks, since all you need is your teammates. That’s also why they’re not that easy…", "items": [{"n": 181, "name": "Initials Drinks", "desc": "Each teammate orders a drink beginning with the first letter of their first name.", "fmt": "Video", "pts": 35}, {"n": 182, "name": "Hottest Take", "desc": "Record a 15-second hottest take from a teammate.", "fmt": "Video", "pts": 45}, {"n": 183, "name": "Bathroom Selfie", "desc": "Get your whole team into one bathroom mirror selfie.", "fmt": "Photo", "pts": 55}, {"n": 184, "name": "Worst Babysitter", "desc": "Every teammate says who on the team they would least trust to raise a child, with good-natured explanations.", "fmt": "Video", "pts": 55}, {"n": 185, "name": "The Last Supper", "desc": "Recreate The Last Supper with teammates.", "fmt": "Photo", "pts": 60}, {"n": 186, "name": "Give a Speech", "desc": "Deliver a passionate 45-second bar speech to your task force.", "fmt": "Video", "pts": 60}, {"n": 187, "name": "Dramatic Breakup", "desc": "Film a dramatic breakup between two teammates.", "fmt": "Video", "pts": 60}, {"n": 188, "name": "Fake Doctor Skit", "desc": "Act out a 15-second fake doctor scene with a teammate.", "fmt": "Video", "pts": 65}, {"n": 189, "name": "Human Pyramid", "desc": "Create a low, stable team formation with no climbing on shoulders; take a group photo.", "fmt": "Photo", "pts": 70}, {"n": 190, "name": "The Scariest Scream", "desc": "Film 3 teammates performing horror-movie screams. VP Internals pick one winner; only that team earns points.", "fmt": "Video", "pts": 70}, {"n": 191, "name": "Nugget Custody Battle", "desc": "Hold a dramatic custody battle over a chicken nugget.", "fmt": "Video", "pts": 75}, {"n": 192, "name": "Best Group Pose", "desc": "Submit your best group pose. VP Internals pick one winner; only that team earns points.", "fmt": "Photo", "pts": 75}, {"n": 193, "name": "The Exorcist", "desc": "Perform a 30-second pretend exorcism on a teammate dressed as a demon.", "fmt": "Video", "pts": 75}, {"n": 194, "name": "Fake Menu Proposal", "desc": "Propose to a teammate or stranger using a menu item.", "fmt": "Video", "pts": 80}, {"n": 195, "name": "Embarrassing Photo Recreated", "desc": "Recreate the most embarrassing photo of a teammate.", "fmt": "Photo", "pts": 85}, {"n": 196, "name": "30-Second Music Video", "desc": "Make a 30-second team music video to a song of your choice.", "fmt": "Video", "pts": 85}, {"n": 197, "name": "The Final Girl", "desc": "Film a 45-second horror scene with 4 teammates and one final survivor.", "fmt": "Video", "pts": 90}, {"n": 198, "name": "Fake Engagement", "desc": "Stage a fake engagement on video. Earn an additional 50 points if it results in a free drink; show proof.", "fmt": "Video", "pts": 90}, {"n": 199, "name": "Task Force Divorce", "desc": "Film a 45-second divorce hearing involving four teammates with a bar item as disputed property.", "fmt": "Video", "pts": 90}, {"n": 200, "name": "60-Second Freestyle", "desc": "Perform a 60-second freestyle rap about your task force.", "fmt": "Video", "pts": 95}, {"n": 201, "name": "Halloween Fashion Show", "desc": "Put on a 30-second costume runway show with at least 4 teammates.", "fmt": "Video", "pts": 100}, {"n": 202, "name": "Task Force Diss Track", "desc": "Record a diss track about another task force.", "fmt": "Video", "pts": 100}, {"n": 203, "name": "The Haunted House", "desc": "Film a 30-second horror movie with at least 4 teammates.", "fmt": "Video", "pts": 100}, {"n": 204, "name": "Pumpkin Worship", "desc": "Get 4 teammates and a stranger to perform a 20-second ritual around a pumpkin decoration.", "fmt": "Video", "pts": 110}, {"n": 205, "name": "Most Steps Tonight", "desc": "Submit a screenshot showing one member’s step count at the end of the crawl. Only the highest individual count earns points.", "fmt": "Screenshot", "pts": 125}, {"n": 206, "name": "Most Romantic Proposal", "desc": "Submit your most romantic proposal on video. Only the VP Internals-selected winner earns points.", "fmt": "Video", "pts": 125}, {"n": 207, "name": "Team Synchronized Dance", "desc": "At least 4 teammates perform a synchronized 30-second dance to music in a bar.", "fmt": "Video", "pts": 135}], "label": "Ohana Means Task Force"}, {"name": "Frenemies with Benefits", "tag": "Involves another task force", "blurb": "For chance run-ins with other teams. Assert your dominance!", "items": [{"n": 208, "name": "Thumb Wrestling", "desc": "Win a thumb-wrestling contest against someone from another task force.", "fmt": "Video", "pts": 50}, {"n": 209, "name": "Rival Photobomb", "desc": "Photobomb a rival team's picture with their agreement.", "fmt": "Photo", "pts": 50}, {"n": 210, "name": "Rival Compliments", "desc": "Get a rival team member to compliment each person on your team.", "fmt": "Video", "pts": 70}, {"n": 211, "name": "Rival Taste Test", "desc": "Beat another task force at a blind food-identification contest using three menu items.", "fmt": "Video", "pts": 75}, {"n": 212, "name": "Team Betrayal", "desc": "Convince a rival team member to publicly declare your team superior.", "fmt": "Video", "pts": 85}, {"n": 213, "name": "Costume Swap Rival", "desc": "Swap costumes with a rival task force member.", "fmt": "Photo", "pts": 85}, {"n": 214, "name": "The Witch Trial", "desc": "Get a rival task force to put a teammate on trial for witchcraft.", "fmt": "Video", "pts": 100}, {"n": 215, "name": "Every Task Force Photo", "desc": "Take one photo featuring at least one person from every task force.", "fmt": "Photo", "pts": 100}, {"n": 216, "name": "President's Embarrassment", "desc": "Get a president from another task force to perform a 20-second dance.", "fmt": "Video", "pts": 100}, {"n": 217, "name": "Two-on-Two Roast Battle", "desc": "Hold a 2v2 roast battle against a different task force.", "fmt": "Video", "pts": 100}, {"n": 218, "name": "Switch Allegiance", "desc": "Convince a rival member to renounce their task force and join yours symbolically.", "fmt": "Video", "pts": 100}, {"n": 219, "name": "Zombie Outbreak", "desc": "Film a zombie infection spreading through at least 6 people from 2 task forces.", "fmt": "Video", "pts": 125}, {"n": 220, "name": "Task Force Dance Battle", "desc": "Compete in a 30-second dance battle against another task force. VP Internals judge the video; winner only.", "fmt": "Video", "pts": 140}, {"n": 221, "name": "Thriller Takeover", "desc": "At least 6 people from 2 task forces perform 30 seconds of recognizable Thriller choreography.", "fmt": "Video", "pts": 150}, {"n": 222, "name": "Bow Down to VP Internals", "desc": "Get 3 captains from other task forces to bow down to VP Internals and compliment them on video.", "fmt": "Video", "pts": 160}, {"n": 223, "name": "Monster Mash-Off", "desc": "Win a 30-second Halloween dance battle against another task force. VP Internals judge.", "fmt": "Video", "pts": 165}], "label": "Frenemies with Benefits"}, {"name": "Where's Waldo?", "tag": "Find this person or thing", "blurb": "Treat it like a bingo card that lasts all night. Keep your eyes peeled!", "items": [{"n": 224, "name": "Disco Ball", "desc": "Photograph a disco ball at a bar.", "fmt": "Photo", "pts": 25}, {"n": 225, "name": "Weirdest Wall Item", "desc": "Photograph the weirdest item on a bar wall.", "fmt": "Photo", "pts": 30}, {"n": 226, "name": "Irish Connection", "desc": "Find an Irish person to confirm it on camera.", "fmt": "Video", "pts": 50}, {"n": 227, "name": "British Connection", "desc": "Find a British person other than Fran to confirm it on camera.", "fmt": "Video", "pts": 50}, {"n": 228, "name": "Costume Couple", "desc": "Find a stranger with a matching couples costume and pose together.", "fmt": "Photo", "pts": 55}, {"n": 229, "name": "Photo With Bouncer", "desc": "Get a photo with a bouncer.", "fmt": "Photo", "pts": 55}, {"n": 230, "name": "Photo With Bartender", "desc": "Get a photo with a bartender.", "fmt": "Photo", "pts": 55}, {"n": 231, "name": "Matching First Name", "desc": "Photograph yourself with a stranger sharing your first name.", "fmt": "Photo", "pts": 60}, {"n": 232, "name": "Matching Costume", "desc": "Photograph yourself with a stranger in the same costume.", "fmt": "Photo", "pts": 65}, {"n": 233, "name": "Over 6 Foot 5", "desc": "Photograph yourself with someone taller than 6'5 (self-reported).", "fmt": "Photo", "pts": 75}, {"n": 234, "name": "Halloween Birthday", "desc": "Find someone whose birthday is October 31; only verify by their statement, do not film ID details.", "fmt": "Photo", "pts": 80}, {"n": 235, "name": "Photo With Firefighter", "desc": "Get a photo with a firefighter.", "fmt": "Photo", "pts": 100}], "label": "Where’s Waldo?"}, {"name": "Pump(k)in- Iron", "tag": "Physical challenges", "blurb": "Spin, race, plank and push up your way to points. Stretch first, thank us later!", "items": [{"n": 236, "name": "Spinning Challenge", "desc": "Spin 20 times, then try to walk in a straight line.", "fmt": "Video", "pts": 55}, {"n": 237, "name": "Stranger Race", "desc": "Race a stranger.", "fmt": "Video", "pts": 75}, {"n": 238, "name": "Three-Minute Plank", "desc": "Hold a plank continuously for three minutes.", "fmt": "Video", "pts": 80}, {"n": 239, "name": "100 Team Pushups", "desc": "Complete 100 cumulative pushups as a task force.", "fmt": "Video", "pts": 80}], "label": "Pump(k)in Iron"}, {"name": "Liquid Confidence", "tag": "Performances, tricks and pranks", "blurb": "Takes some guts. You might embarrass yourself, but that’s the point!", "items": [{"n": 240, "name": "Magic Trick", "desc": "Perform a magic trick for a stranger.", "fmt": "Video", "pts": 55}, {"n": 241, "name": "Fake Fall", "desc": "Perform an embarrassing fake fall in an open area.", "fmt": "Video", "pts": 55}, {"n": 242, "name": "Accent Order", "desc": "Order a drink in an accent.", "fmt": "Video", "pts": 55}, {"n": 243, "name": "Gestures Only", "desc": "Order a drink using only gestures, with a bartender.", "fmt": "Video", "pts": 60}, {"n": 244, "name": "Irish Jig", "desc": "Perform an Irish jig inside a bar.", "fmt": "Video", "pts": 70}, {"n": 245, "name": "Beer Chug Parody", "desc": "Film a theatrical speed-chug parody using an empty cup; judge on comedy, not actual speed drinking.", "fmt": "Video", "pts": 70}, {"n": 246, "name": "Karaoke", "desc": "Perform a karaoke song where karaoke is available, otherwise a short a cappella performance.", "fmt": "Video", "pts": 75}, {"n": 247, "name": "SnackLand Unicorn", "desc": "Buy an ice cream cone at SnackLand; briefly stick it to your forehead and shout 'Unicorn!'", "fmt": "Video", "pts": 90}, {"n": 248, "name": "Mechanical Bull", "desc": "Ride a mechanical bull at a venue where offered, with sober participation.", "fmt": "Video", "pts": 110}], "label": "Liquid Confidence"}], "goat": {"tag": "Overall awards", "blurb": "End-of-crawl awards, all picked by VP Internals.", "items": [{"n": 249, "name": "Worst Edible Combination", "desc": "Combine food and drinks bought at any participating bars. A teammate eats one bite on video.", "fmt": "Video", "pts": 300}, {"n": 250, "name": "Funniest Video of the Night", "desc": "Submit your funniest challenge video from the night.", "fmt": "Video", "pts": 500}, {"n": 251, "name": "MVP", "desc": "Nominate your team’s MVP of the night.", "fmt": "Video/Photo", "pts": 200}, {"n": 252, "name": "Most Improved", "desc": "Nominate a new GROCK member from your team who really came out of their shell tonight.", "fmt": "Video/Photo", "pts": 200}]}, "rules": [["Submission", "Give VP Internals <strong>the challenge number<\/strong> and the required proof.", true], ["Limit", "<strong>One submission per challenge<\/strong> unless the description says otherwise.", true], ["Strangers", "Same stranger cannot count twice for the same challenge.", false], ["Video proof", "Required action must be clearly visible. Photos cannot replace videos.", false], ["Bar location", "Challenges naming a bar must be completed at that bar.", false], ["Competition", "Only winning task forces receive points for competitions or judged awards.", false], ["Physical items", "Bring all physical item submissions directly to VP Internals.", false], ["Judging", "VP Internals make all final scoring decisions.", false], ["Repeats", "See individual descriptions for repeatable challenges and caps.", false]]};
+const BAR_COUNT = 15;
+const slug = s => s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const title = s => s.toLowerCase().replace(/(^|[\s\/(-])([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bBb\.q\b/i,'BB.Q').replace(/\bVp\b/,'VP');
+DATA.sections.forEach((s,i) => { s.id = slug(s.name); s.group = i < BAR_COUNT ? 'bars' : 'any'; s.label = s.label || title(s.name); });
+const MAPS = {
+  "THE MAIN": "The Main Greek Taverna, Main Street, Vancouver, BC",
+  "STEAMWORKS MOUNT PLEASANT": "Steamworks Mount Pleasant, Main Street, Vancouver, BC",
+  "BRASSNECK BREWERY": "Brassneck Brewery, Main Street, Vancouver, BC",
+  "PINKY'S": "Pinky's, Main Street, Vancouver, BC",
+  "FRIENDLIES": "Friendlies, Main Street, Vancouver, BC",
+  "SING SING": "Sing Sing Beer Bar, Main Street, Vancouver, BC",
+  "UNCLE ABE'S": "Uncle Abe's, Main Street, Vancouver, BC",
+  "HYDE": "Hyde, Main Street, Vancouver, BC",
+  "BROWNS CRAFTHOUSE": "Browns Crafthouse, Main Street, Vancouver, BC",
+  "BRITANNIA BREWING": "Britannia Brewing, Main Street, Vancouver, BC",
+  "EL CAMINO'S": "El Camino's, Main Street, Vancouver, BC",
+  "BB.Q CHICKEN & PUB": "bb.q Chicken & Pub, Main Street, Vancouver, BC",
+  "GOOD CO. MAIN STREET": "Good Co. Main Street, Vancouver, BC",
+  "NIKKYU": "Nikkyu, Main Street, Vancouver, BC",
+  "CRAFT BEER MARKET": "CRAFT Beer Market Olympic Village, Vancouver, BC"
+};
+const SECS = DATA.sections;
+const ALL = SECS.flatMap(s => s.items);
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let done = new Set();
+try { done = new Set(JSON.parse(localStorage.getItem('grock-done-v3') || '[]')); } catch (e) {}
+const save = () => { try { localStorage.setItem('grock-done-v3', JSON.stringify([...done])); } catch (e) {} };
+
+let cur = 0;
+const fromHash = () => { const i = SECS.findIndex(s => s.id === decodeURIComponent(location.hash.slice(1))); if (i >= 0) cur = i; };
+
+$('rules').innerHTML = DATA.rules.map(([k, d, key]) => `<div class="row${key ? ' key' : ''}"><dt>${k}</dt><dd>${d}</dd></div>`).join('');
+$('goat-p').innerHTML = `<b>${esc(DATA.goat.tag)}.</b> ${esc(DATA.goat.blurb)}`;
+$('grid-goat').innerHTML = DATA.goat.items.map(a => `<div class="award"><div class="ahead"><span class="num">#${a.n}</span><span class="pts">${a.pts}<small>pts</small></span></div><h3>${esc(a.name)}</h3><p>${esc(a.desc)}</p><span class="fmt">${esc(a.fmt)}</span></div>`).join('');
+
+const stats = s => { const d = s.items.filter(i => done.has(i.n)); return { n: d.length, pts: d.reduce((a, i) => a + i.pts, 0), total: s.items.reduce((a, i) => a + i.pts, 0) }; };
+const range = s => `#${s.items[0].n}–${s.items[s.items.length - 1].n}`;
+
+function renderTabs() {
+  ['bars', 'any'].forEach(g => {
+    $('grid-' + g).innerHTML = SECS.map((s, i) => {
+      if (s.group !== g) return '';
+      const st = stats(s), full = st.n === s.items.length;
+      return `<button class="tab ${g}${full ? ' complete' : ''}" role="tab" data-i="${i}" aria-selected="${i === cur}"><span class="t">${esc(s.label)}</span>${s.tag ? `<span class="tg">${esc(s.tag)}</span>` : ''}<span class="c">${range(s)} · ${st.n}/${s.items.length}</span></button>`;
+    }).join('');
+  });
+}
+function card(it) {
+  const isDone = done.has(it.n), photo = /^photo|screenshot/i.test(it.fmt);
+  return `<label class="card${isDone ? ' is-done' : ''}" data-n="${it.n}">
+    <input type="checkbox" id="c${it.n}" ${isDone ? 'checked' : ''} aria-label="Mark #${it.n} ${esc(it.name)} done">
+    <span class="box" aria-hidden="true">✓</span>
+    <span class="body"><span class="name"><span class="num">#${it.n}</span>${esc(it.name)}</span><span class="desc">${esc(it.desc)}</span></span>
+    <span class="side"><span class="pts">${it.pts}<small>pts</small></span><span class="fmt${photo ? ' photo' : ''}">${esc(it.fmt)}</span></span>
+  </label>`;
+}
+function renderMeta() {
+  const s = SECS[cur], st = stats(s);
+  $('sec-meta').textContent = `${st.n}/${s.items.length} done · ${st.pts}/${st.total} pts`;
+  const d = ALL.filter(i => done.has(i.n));
+  $('tally').innerHTML = `<b>${d.length}</b>/${ALL.length} done · <b>${d.reduce((a, i) => a + i.pts, 0)}</b> pts`;
+}
+function renderSection() {
+  const s = SECS[cur];
+  $('sec-name').textContent = s.label;
+  $('sec-note').innerHTML = s.group === 'bars' ? `Location specific: complete these at <b>${esc(s.label)}</b>.` : `<b>${esc(s.tag)}.</b> ${esc(s.blurb)}`;
+  const q = MAPS[s.name];
+  $('maps').hidden = !q;
+  if (q) { $('maps').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); $('maps').setAttribute('aria-label', 'Open ' + s.label + ' in Google Maps'); }
+  $('list').innerHTML = s.items.map(card).join('');
+  $('prev').disabled = cur === 0; $('next').disabled = cur === SECS.length - 1;
+  renderMeta();
+}
+function go(i, scroll) {
+  cur = Math.max(0, Math.min(SECS.length - 1, i));
+  if (location.hash.slice(1) !== SECS[cur].id) history.replaceState(null, '', '#' + SECS[cur].id);
+  renderTabs(); renderSection();
+  if (scroll) $('section').scrollIntoView({ block: 'start' });
+}
+
+$('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) go(+b.dataset.i, true); });
+$('prev').addEventListener('click', () => go(cur - 1, true));
+$('next').addEventListener('click', () => go(cur + 1, true));
+$('up').addEventListener('click', () => $('tabs').scrollIntoView({ block: 'start' }));
+$('list').addEventListener('change', e => {
+  const c = e.target.closest('.card'); if (!c) return;
+  const n = +c.dataset.n;
+  e.target.checked ? done.add(n) : done.delete(n);
+  c.classList.toggle('is-done', e.target.checked);
+  save(); renderTabs(); renderMeta();
+});
+let armed;
+$('reset').addEventListener('click', e => {
+  const b = e.currentTarget;
+  if (!b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'Tap again to clear all'; clearTimeout(armed); armed = setTimeout(() => { b.classList.remove('armed'); b.textContent = 'Clear all checkmarks'; }, 3000); return; }
+  b.classList.remove('armed'); b.textContent = 'Clear all checkmarks';
+  done.clear(); save(); renderTabs(); renderSection();
+});
+window.addEventListener('hashchange', () => { fromHash(); go(cur, false); });
+
+fromHash(); go(cur, false);
+</script>
+</body>
+</html>
