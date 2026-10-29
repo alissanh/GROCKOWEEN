@@ -73,8 +73,10 @@ h1 span { color: var(--pumpkin); }
 .rules dt { font-weight: 700; }
 .rules dd { margin: 0; color: var(--muted); min-width: 0; }
 .rules .row.key dd { color: var(--fg); }
-.respect { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--violet-soft); color: var(--fg); font-size: .95rem; }
-.respect b { color: var(--violet); }
+.tip { background: var(--violet-soft); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.tip h2 { font-family: var(--f-display); font-size: 1.15rem; margin: 0; color: var(--violet); }
+.tip p { margin: 0; font-size: .95rem; }
+.tip b { color: var(--violet); }
 .penalties { border-color: var(--bad); }
 .penalties h2 { color: var(--bad); }
 .penalties ul { list-style: none; margin: 0; padding: 0; }
@@ -164,7 +166,12 @@ h1 span { color: var(--pumpkin); }
   <section class="rules" aria-labelledby="rules-h">
     <h2 id="rules-h">Rules</h2>
     <dl id="rules"></dl>
-    <p class="respect">We encourage competition and engagement, but keep it respectful. Be mindful of the customers and staff at the bars: you're in public!! And tip your bartenders!! <b>Have fun!!</b></p>
+  </section>
+
+  <section class="tip" aria-labelledby="tip-h">
+    <h2 id="tip-h">Tip</h2>
+    <p>There are a lot of challenges, so we encourage you to sit down and scroll through them first before rushing to do any. <b>It's a strategy game, so strategize!</b></p>
+    <p>We encourage competition and engagement, but keep it respectful. Be mindful of the customers and staff at the bars: you're in public!! And tip your bartenders!! <b>Have fun!!</b></p>
   </section>
 
   <section class="rules penalties" aria-labelledby="pen-h">
@@ -177,9 +184,9 @@ h1 span { color: var(--pumpkin); }
   </section>
 
   <nav class="tabs" id="tabs" aria-label="Challenge sections">
+    <div class="group"><div class="ghead"><h2>GOAT</h2><p id="goat-p"></p></div><div class="awards" id="grid-goat"></div></div>
     <div class="group"><div class="ghead"><div class="gtitle"><h2>Bars</h2><a class="maps" href="https://maps.app.goo.gl/8zq6ByigjjJuDJus8" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Map of all Bars</a></div><p>Location specific. Get to know Main Street!</p></div><div class="grid" role="tablist" id="grid-bars"></div></div>
     <div class="group"><div class="ghead"><h2>Anywhere</h2><p>Universal challenges you can do at any bar.</p></div><div class="grid" role="tablist" id="grid-any"></div></div>
-    <div class="group"><div class="ghead"><h2>GOAT</h2><p id="goat-p"></p></div><div class="awards" id="grid-goat"></div></div>
   </nav>
 
   <section id="section" aria-live="polite">
